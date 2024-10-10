@@ -36,7 +36,7 @@ int main (int argc, char ** argv)
   rc = dds_set_status_mask(writer, DDS_PUBLICATION_MATCHED_STATUS);
   if (rc != DDS_RETCODE_OK)
     DDS_FATAL("dds_set_status_mask: %s\n", dds_strretcode(-rc));
-
+  //wait until match topic
   while(!(status & DDS_PUBLICATION_MATCHED_STATUS))
   {
     rc = dds_get_status_changes (writer, &status);
@@ -54,7 +54,7 @@ int main (int argc, char ** argv)
   printf ("=== [Publisher]  Writing : ");
   printf ("Message (%"PRId32", %s)\n", msg.userID, msg.message);
   fflush (stdout);
-
+//send data
   rc = dds_write (writer, &msg);
   if (rc != DDS_RETCODE_OK)
     DDS_FATAL("dds_write: %s\n", dds_strretcode(-rc));
